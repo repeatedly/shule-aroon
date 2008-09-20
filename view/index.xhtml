@@ -1,14 +1,20 @@
 <div id="description">
   <h2>Select your Identity Provider</h2>
   <p>
-    Select your IdP for login to #{request.referer}.
+    Select from following IdP list.
   </p>
 </div>
 
-<form id="IdP_select" action="" method="post">
+<form id="IdP_select" action="./" method="get">
   <fieldset>
     <legend>Identity Provider List</legend>
+    <input type="hidden" name="entityID" value="#{request.params['entityID']}" />
+    <input type="hidden" name="return_" value="#{request.params['return']}" />
+    <input type="hidden" name="returnIDParam" value="entityID" />
     <select name="user_IdP">
+    <?r @list.each do |key, value| ?>
+      <option value="#{key}">#{value['name']}</option>
+    <?r end ?>
     </select>
     <input type="submit" name="IdP_select" value="Select" /><br /><br />
     <input type="checkbox" name="no_cookie" value="true" />Remeber this selection.

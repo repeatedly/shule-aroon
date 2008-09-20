@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'ramaze'
 require 'ramaze/spec/helper'
 
@@ -10,15 +11,13 @@ describe MainController do
 
   it 'should show start page' do
     got = get('/')
-    got.status.should == 200
-    got.at('//title').text.strip.should ==
-      MainController.new.index
+    got.status.should == 303
+    #got.at('//title').text.strip.should == MainController.new.index
   end
 
-  it 'should show /notemplate' do
-    got = get('/notemplate')
+  it 'should show start page with entityID param' do
+    got = get('/', 'entityID' => 'hoge')
     got.status.should == 200
-    got.at('//div').text.strip.should ==
-      MainController.new.notemplate
+    got.at('//div[@id="description"]/h2').text.strip.should == "Select your Identity Provider"
   end
 end

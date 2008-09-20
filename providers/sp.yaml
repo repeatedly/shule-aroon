@@ -1,0 +1,5 @@
+https://sp.example.org/shibboleth-sp:
+  name: 'Your service'
+  disc:
+    - 'https://sp.example.org/Shibboleth.sso/DS'
+    - 'http://sp.example.org/Shibboleth.sso/DS'
