@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+*       {
+    font-size: 100%;
+    margin: 0;
+    padding: 0
+}
+
+body	{
+    cursor: crosshair;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 1em
+}
+
+img	{
+    border: 0
+}
+
+a:link {
+    color: #333333
+}
+
+a:visited	{
+    color: #333333
+}
+
+a:hover	{
+    color: #999999
+}
+
+a:active	{
+    color: #333333
+}
+
+/* main box */
+#container	{
+    width: 500px;
+    border: solid 2px #000000;
+    margin: 1em auto 1em auto;
+    text-align: left;
+}
+
+/* head content(or Logo?) */
+#header {
+    width: 500px;
+    height: 120px;
+    background-color: #333333;
+}
+
+
+/* menu */
+ul#wayf_menu {
+    width: 500px;
+}
+
+ul#wayf_menu:after {
+    height: 0;
+    visibility: hidden;
+    content: ".";
+    display: block;
+    clear: both;
+}
+
+ul#wayf_menu li {
+    float: left;
+    width: 125px;
+    line-height: 1;
+    list-style-type: none;
+}
+
+ul#wayf_menu li a {
+    padding: 0.8em 10px;
+    display: block;
+    position: relative; /* IE6 Bug Fix */
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+}
+
+ul#wayf_menu li a:hover {
+    color: #000000;
+    background-color: #cccccc;
+}
+
+#description h2	{
+    margin: 0.5em 0em 0.5em 1em;
+}
+
+
+#description p {
+    margin: 1em 1em;
+}
+
+#IdP_select fieldset	{
+    padding: 0.5em 0em 0.5em 0.5em;
+    margin: 1em 0.5em 0.5em 0.5em;
+}
+
+#IdP_select legend	{
+    line-height: 1.2em;
+}
+
+/* footer */
+#footer	{
+    width: 500px;
+}
+
+#footer .note	{
+    margin: 1em 0.5em 0.5em 0.5em;
+    font-weight: bold;
+}
+
+#footer .copyright	{
+    text-align: center;
+}
