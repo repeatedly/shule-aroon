@@ -12,11 +12,16 @@
     <input type="hidden" name="return_" value="#{request.params['return']}" />
     <input type="hidden" name="returnIDParam" value="entityID" />
     <select name="user_IdP">
-    <?r @list.each do |key, value| ?>
-      <option value="#{key}">#{value['name']}</option>
+    <?r @list.each_pair do |fed_name, idp| ?>
+    <optgroup label="#{fed_name}">
+      <?r idp.each_pair do |id, value| ?>
+      <option value="#{id}">#{value[:name] || id}</option>
+      <?r end ?>
+    </optgroup>
     <?r end ?>
     </select>
     <input type="submit" name="IdP_select" value="Select" /><br /><br />
-    <input type="checkbox" name="no_cookie" value="true" />Remeber this selection.
+    <input type="checkbox" name="cookie" value="true" id="remember" />
+    <label for="remember">Remember this selection.</label>
   </fieldset>
 </form>

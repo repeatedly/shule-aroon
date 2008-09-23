@@ -5,7 +5,7 @@ class MainController < Ramaze::Controller
   helper :aspect, :cgi
 
   before(:index) {
-    redirect Rs(:error) unless request.params['entityID']
+    #redirect Rs(:error) unless request.params['entityID']
   }
 
   def index
