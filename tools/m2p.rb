@@ -104,8 +104,8 @@ class M2P
   # Saved files are 'idp.yaml' and 'sp.yaml'.
   #
   def save
-    File.open('idp.yaml', 'w') { |f| f.print @IdProviders.to_yaml }
-    File.open('sp.yaml',  'w') { |f| f.print @SProviders.to_yaml  }
+    File.open('../providers/idp.yaml', 'w') { |f| f.print @IdProviders.to_yaml }
+    File.open('../providers/sp.yaml',  'w') { |f| f.print @SProviders.to_yaml  }
   end
 
   private

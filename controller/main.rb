@@ -9,7 +9,8 @@ class MainController < Ramaze::Controller
   }
 
   def index
-    @list = YAML.load_file('./providers/idp.yaml')
+    @params = request.params
+    @list   = YAML.load_file('./providers/idp.yaml')
   end
 
   def clear

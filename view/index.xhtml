@@ -5,12 +5,16 @@
   </p>
 </div>
 
+<div id="recent_IdP">
+
+</div>
+
 <form id="IdP_select" action="./" method="get">
   <fieldset>
     <legend>Identity Provider List</legend>
-    <input type="hidden" name="entityID" value="#{request.params['entityID']}" />
-    <input type="hidden" name="return_" value="#{request.params['return']}" />
-    <input type="hidden" name="returnIDParam" value="entityID" />
+    <input type="hidden" name="entityID" value="#{@params['entityID']}" />
+    <input type="hidden" name="return_" value="#{@params['return']}" />
+    <input type="hidden" name="returnIDParam" value="#{@params['returnIDParam'] || 'entityID'}" />
     <select name="user_IdP">
     <?r @list.each_pair do |fed_name, idp| ?>
     <optgroup label="#{fed_name}">
