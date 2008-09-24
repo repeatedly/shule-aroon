@@ -5,27 +5,34 @@
   </p>
 </div>
 
+<?r if @cdk and not @cdk.empty? ?>
 <div id="recent_IdP">
-
+  <p>Recently select Identity Provider.</p>
+  <ul>
+    <?r @cdk.each do |entity_id| ?>
+    <li><a href="#{build_url(entity_id)}">#{display_name(entity_id)}</a></li>
+    <?r end ?>
+  </ul>
 </div>
+<?r end ?>
 
-<form id="IdP_select" action="./" method="get">
+<form id="select_IdP" action="./" method="get">
   <fieldset>
     <legend>Identity Provider List</legend>
     <input type="hidden" name="entityID" value="#{@params['entityID']}" />
-    <input type="hidden" name="return_" value="#{@params['return']}" />
-    <input type="hidden" name="returnIDParam" value="#{@params['returnIDParam'] || 'entityID'}" />
+    <input type="hidden" name="return" value="#{@params['return']}" />
+    <input type="hidden" name="returnIDParam" value="#{returnIDParam}" />
     <select name="user_IdP">
     <?r @list.each_pair do |fed_name, idp| ?>
     <optgroup label="#{fed_name}">
-      <?r idp.each_pair do |id, value| ?>
-      <option value="#{id}">#{value[:name] || id}</option>
+      <?r idp.each_pair do |entity_id, value| ?>
+      <option value="#{entity_id}">#{value[:name] || entity_id}</option>
       <?r end ?>
     </optgroup>
     <?r end ?>
     </select>
-    <input type="submit" name="IdP_select" value="Select" /><br /><br />
-    <input type="checkbox" name="cookie" value="true" id="remember" />
+    <input type="submit" name="select_IdP" value="Select" /><br /><br />
+    <input type="checkbox" name="remember" value="true" id="remember" />
     <label for="remember">Remember this selection.</label>
   </fieldset>
 </form>

@@ -11,8 +11,8 @@ Ruby-DS is the Ruby based simple implementation using Ramaze.
 
 # Require
 
-* Ruby
-* Ramaze
+* [Ruby](http://www.ruby-lang.org/)
+* [Ramaze](http://ramaze.net/)
 
 # Contact
 
