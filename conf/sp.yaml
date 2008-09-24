@@ -1,0 +1,5 @@
+--- 
+https://sp.example.org/shibboleth-sp: 
+  :disc: 
+  - http://sp.example.org/Shibboleth.sso/DS
+  - https://sp.example.org/Shibboleth.sso/DS

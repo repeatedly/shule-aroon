@@ -1,0 +1,5 @@
+--- 
+Example Federation: 
+  https://idp.example.org/idp/shibboleth: 
+    :name: Your Identities
+    :SSO: https://idp.example.org/idp/profile/Shibboleth/SSO

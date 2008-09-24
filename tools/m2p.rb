@@ -10,16 +10,17 @@
 #
 # == Example
 #
-#   M2P.exec(Dir.glob('./*.xml'))
+#   M2P.exec(:meta_file => Dir.glob('./*.xml'))
 #
 # == CLI
 #
-# Default convert files is 'dsroot/metadata/*.xml'.
-# Pass the argument if you would like to change the seach path.
+# Default metadata files are 'dsroot/metadata/*.xml'.
+# Pass the argument if you would like to change the search path.
 #
-#   ruby m2p.rb ./foo.xml ../metadata/bar.xml
+#   ruby m2p.rb ./foo.xml ../metadata/bar.xml ../conf/
 #
-# Saved path and file name can't change.
+# If pass the argument,
+# last argument(../conf/) is indispensable to save idp.yaml and sp.yaml.
 #
 # == Format
 #
@@ -69,19 +70,24 @@ class M2P
     :SPDisc   => 'SPSSODescriptor/Extensions/idpdisc:DiscoveryResponse',
     :Binding  => 'urn:mace:shibboleth:1.0:profiles:AuthnRequest'
   }
+  DefaultConfig = {
+    :save_path => '../conf/',
+    :meta_file => Dir.glob('../metadata/*.xml')
+  }
 
   #
   # Converts and saves file.
   #
-  def self.exec(files)
-    M2P.new(files).convert.save
+  def self.exec(config)
+    M2P.new(config).convert.save
   end
 
   #
   # _files_ is array having metadata's path.
   #
-  def initialize(files)
-    @metadata    = files
+  def initialize(config)
+    @config      = DefaultConfig.merge(config)
+    @metadata    = @config[:meta_file]
     @IdProviders = Hash.new { |h, k| h[k] = {} }
     @SProviders  = Hash.new
   end
@@ -104,8 +110,8 @@ class M2P
   # Saved files are 'idp.yaml' and 'sp.yaml'.
   #
   def save
-    File.open('../providers/idp.yaml', 'w') { |f| f.print @IdProviders.to_yaml }
-    File.open('../providers/sp.yaml',  'w') { |f| f.print @SProviders.to_yaml  }
+    File.open(@config[:save_path] + 'idp.yaml', 'w') { |f| f.print @IdProviders.to_yaml }
+    File.open(@config[:save_path] + 'sp.yaml',  'w') { |f| f.print @SProviders.to_yaml  }
   end
 
   private
@@ -197,6 +203,10 @@ end
 
 # for CLI
 if $0 == __FILE__
-  files = ARGV.empty? ? Dir.glob('../metadata/*.xml') : ARGV
-  M2P.exec(files)
+  config = {}
+  unless ARGV.empty?
+    config[:save_path] = ARGV.pop
+    config[:meta_file] = ARGV.map { |arg| Dir.glob(arg) }.flatten.uniq
+  end
+  M2P.exec(config)
 end
