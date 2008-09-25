@@ -1,4 +1,4 @@
-require 'yaml'
+# -*- coding: utf-8 -*-
 
 class MainController < Ramaze::Controller
   layout '/page'
@@ -6,11 +6,11 @@ class MainController < Ramaze::Controller
 
   before(:index) {
     check_access
+    check_sp
   }
 
   def index
     @params = request.params
-    @list   = YAML.load_file('./conf/idp.yaml')
 
     if @params['select_IdP']
       entity_id = @params['user_IdP']
@@ -42,10 +42,21 @@ class MainController < Ramaze::Controller
   end
 
   #
-  #
+  # Checks SP's entityID and return URL if use metadata.
+  # Refer to [IdP Discovery Protocol 2.5].
   #
   def check_sp
+    entity_id =  request.params['entityID']
 
+    redirect Rs(:bad) unless Ramaze::Global.SProviders.has_key?(entity_id)
+    #redirect Rs(:bad) unless search_ds_url(entity_idrequest.params['return'])
+  end
+
+  #
+  # Returns User DS end point URL.
+  #
+  def search_ds_url
+    
   end
 
   #
@@ -62,7 +73,7 @@ class MainController < Ramaze::Controller
   end
 
   def display_name(entity_id)
-    @list.each_pair do |fed_name, idp|
+    Ramaze::Global.IdProviders.each_pair do |fed_name, idp|
       if idp.has_key?(entity_id)
         return idp[entity_id][:name] || entity_id
       end

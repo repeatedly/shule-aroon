@@ -23,7 +23,7 @@
     <input type="hidden" name="return" value="#{@params['return']}" />
     <input type="hidden" name="returnIDParam" value="#{returnIDParam}" />
     <select name="user_IdP">
-    <?r @list.each_pair do |fed_name, idp| ?>
+    <?r Ramaze::Global.IdProviders.each_pair do |fed_name, idp| ?>
     <optgroup label="#{fed_name}">
       <?r idp.each_pair do |entity_id, value| ?>
       <option value="#{entity_id}">#{value[:name] || entity_id}</option>
