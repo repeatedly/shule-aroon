@@ -5,16 +5,12 @@ class MainController < Ramaze::Controller
   helper :aspect
 
   before(:index) {
-    if entity_id = request.cookies['_redirect_idp']
-      auto_redirect(entity_id)
-    end
-    #redirect Rs(:error) unless request.params['entityID']
+    check_access
   }
 
   def index
     @params = request.params
     @list   = YAML.load_file('./conf/idp.yaml')
-    @cdk    = get_cdk
 
     if @params['select_IdP']
       entity_id = @params['user_IdP']
@@ -22,8 +18,6 @@ class MainController < Ramaze::Controller
       set_redirect_cookie(entity_id) if @params['remember']
       redirect  build_url(entity_id)
     end
-
-    set_cdk('')
   end
 
   private
@@ -33,13 +27,30 @@ class MainController < Ramaze::Controller
     url << "&#{returnIDParam}=#{entity_id}"
   end
 
+  #
+  # Checks HTTP GET request.
+  # Refer to [IdP Discovery Protocol 2.4.1].
+  #
+  def check_access
+    if not request.params['entityID']
+      redirect Rs(:bad)
+    elsif request.cookies['_redirect_idp']
+      redirect build_url(request.cookies['_redirect_idp'])
+    elsif request.params['isPassive'] == 'true'
+      redirect request.params['return']
+    end
+  end
+
+  #
+  #
+  #
   def check_sp
 
   end
 
   #
   # Returns 'entityID' if returnIDParam is empty.
-  # Refer to [IdP Discovery Protocol 2.4.1]. 
+  # Refer to 'returnIDParam' section of [IdP Discovery Protocol 2.4.1]. 
   #
   def returnIDParam
     return_id = request.params['returnIDParam']
@@ -59,25 +70,18 @@ class MainController < Ramaze::Controller
     entity_id
   end
 
-  def auto_redirect(entity_id)
-    set_cdk(entity_id)
-    redirect build_url(entity_id)
-  end
-
   #-
-  # cdk is common domain cookie
+  # cdk is common domain cookie.
   #+
 
   def set_cdk(idp)
-    cdk = if cdk = get_cdk and not cdk.empty?
-            p cdk
+    cdk = if cdk = get_cdk
             cdk.delete(idp)
             cdk.unshift(idp)
             cdk = cdk.map { |idp| [idp].pack('m') }.join(' ')
           else
             [idp].pack('m')
           end
-    p cdk
     response.set_cookie('_saml_idp', cdk)
   end
 

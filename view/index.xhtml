@@ -5,11 +5,11 @@
   </p>
 </div>
 
-<?r if @cdk and not @cdk.empty? ?>
+<?r if cdk = get_cdk ?>
 <div id="recent_IdP">
   <p>Recently select Identity Provider.</p>
   <ul>
-    <?r @cdk.each do |entity_id| ?>
+    <?r cdk.each do |entity_id| ?>
     <li><a href="#{build_url(entity_id)}">#{display_name(entity_id)}</a></li>
     <?r end ?>
   </ul>

@@ -78,6 +78,7 @@ a:active	{
 }
 
 #recent_IdP p {
+    font-weight: bold;
     margin-top:  1em;
     margin-left: 1em;
 }
