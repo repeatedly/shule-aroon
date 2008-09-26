@@ -19,8 +19,19 @@ class MainController < Ramaze::Controller
     end
   end
 
+  #
+  # Clears the common domain cookie.
+  #
+  def clear
+    response.delete_cookie('_saml_idp')
+    redirect Rs('?' + request.params['query'])
+  end
+
   private
 
+  #
+  # Returns the redirect URL to SP
+  #
   def build_url(entity_id)
     url  = @params['return'].dup
     url << "&#{returnIDParam}=#{entity_id}"
@@ -47,7 +58,7 @@ class MainController < Ramaze::Controller
   def check_sp(entity_id)
     # Not include Relying Parties.
     unless Ramaze::Global.SProviders.key?(entity_id)
-      bad_request("SP is not found in Relying Party.")
+      bad_request('SP is not found in Relying Party.')
     end
 
     end_point = get_end_point(@params['return'])
