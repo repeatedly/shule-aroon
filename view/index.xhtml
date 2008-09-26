@@ -36,7 +36,10 @@
     <?r end ?>
     </select>
     <input type="submit" name="select_IdP" value="Select" /><br /><br />
-    <input type="checkbox" name="remember" value="true" id="remember" />
-    <label for="remember">Remember this selection.</label>
+    <p id="bypass_conf">DS bypass configuration.</p>
+    <input type="radio" name="bypass" value="remember" id="remember" />
+    <label for="remember">Remember this selection while closing browser.</label><br />
+    <input type="radio" name="bypass" value="permanent" id="permanent" />
+    <label for="permanent">Remember this selection permanently.</label>
   </fieldset>
 </form>

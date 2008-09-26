@@ -1,0 +1,12 @@
+:adapter:              :mongrel         # Don't support webrick and Ebb, because don't treat multiple cookie
+:port:                 7000
+:common_domain:        null
+:common_domain_cookie: '_saml_idp'
+:redirect_cookie:      '_redirect_idp'
+:check_sp:             yes              # Not require sp.yaml if no
+:expires:              31536000         # permanent cookie expire(3600 * 24 * 365)
+:admin:                'admin'          # Display bad and error pages
+:admin_mail:           'root@localhost' # ditto
+:log_level:                             # logging level
+  - :warn
+  - :error

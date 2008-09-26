@@ -16,7 +16,7 @@ Ruby-DS is the Ruby based simple implementation using Ramaze.
 
 # Contact
 
-tama <repeatedly@gmail.com>
+tama <<repeatedly@gmail.com>>
 
 # License
 
@@ -43,3 +43,5 @@ Ruby License
 * [SWITCH WAYF](http://www.switch.ch/aai/wayf/)
 
   PHP based DS written by SWITCHaai.
+
+Ruby-DS UI refer to above projects.

@@ -4,18 +4,21 @@ class MainController < Ramaze::Controller
   layout '/page'
   helper :aspect
 
-  before(:index) {
+  before_all {
+    @config = Ramaze::Global.ds_config
     @params = request.params
-    check_request
-    check_sp(@params['entityID'])
   }
 
   def index
+    check_request
+
     if @params['select_IdP']
       entity_id = @params['user_IdP']
-      set_cdk(entity_id)
-      set_redirect_cookie(entity_id) if @params['remember']
+      set_common_domain_cookie(entity_id)
+      set_redirect_cookie(entity_id) if @params['bypass']
       redirect  build_url(entity_id)
+    else
+      check_sp(@params['entityID']) if @config[:check_sp]
     end
   end
 
@@ -23,7 +26,7 @@ class MainController < Ramaze::Controller
   # Clears the common domain cookie.
   #
   def clear
-    response.delete_cookie('_saml_idp')
+    response.delete_cookie(@config[:common_domain_cookie])
     redirect Rs('?' + request.params['query'])
   end
 
@@ -46,8 +49,8 @@ class MainController < Ramaze::Controller
       bad_request('Access parameters are different from SAML spec.')
     elsif @params['isPassive'] == 'true'
       redirect @params['return']
-    elsif request.cookies['_redirect_idp']
-      redirect build_url(request.cookies['_redirect_idp'])
+    elsif request.cookies[@config[:redirect_cookie]]
+      redirect build_url(request.cookies[@config[:redirect_cookie]])
     end
   end
 
@@ -99,6 +102,7 @@ class MainController < Ramaze::Controller
   #
   def bad_request(msg)
     flash[:msg] = msg
+    Ramaze::Log.warn("msg")
     redirect Rs(:bad)
   end
 
@@ -129,30 +133,46 @@ class MainController < Ramaze::Controller
     entity_id
   end
 
-  #-
-  # cdk is common domain cookie.
-  #+
-
-  def set_cdk(idp)
-    cdk = if cdk = get_cdk
+  #
+  # Set the common domain cookie.
+  # Refer to [SAML Profile 2.0 4.3.1, 4.3.2]
+  #  
+  def set_common_domain_cookie(idp)
+    cdk = if cdk = get_common_domain_cookie
             cdk.delete(idp)
             cdk.unshift(idp)
             cdk = cdk.map { |idp| [idp].pack('m') }.join(' ')
           else
             [idp].pack('m')
           end
-    response.set_cookie('_saml_idp', cdk)
+    response.set_cookie(@config[:common_domain_cookie], create_cookie(cdk))
   end
 
-  def get_cdk
-    if cdk = request.cookies['_saml_idp']
+  #
+  # Parse and get the common domain cookie.
+  # Refer to [SAML Profile 2.0 4.3.1, 4.3.3]
+  #
+  def get_common_domain_cookie
+    if cdk = request.cookies[@config[:common_domain_cookie]]
       cdk.split(/ /).map { |id| id.unpack('m')[0] }
     else
       nil
     end
   end
 
+  #
+  # Set the cookie using bypass this Discovery Service.
+  #
   def set_redirect_cookie(idp)
-    response.set_cookie('_redirect_idp', idp)
+    response.set_cookie(@config[:redirect_cookie], create_cookie(idp))
+  end
+
+  def create_cookie(value)
+    cookie = {
+      :value  => value,
+      :domain => @config[:common_domain]
+    }
+    cookie[:expires] = Time.now + @config[:expires] if @params['bypass'] == "permanent"
+    cookie
   end
 end
