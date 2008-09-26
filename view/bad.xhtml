@@ -1,7 +1,11 @@
 <div id="description">
   <h2>Bad request!</h2>
+  <?r if flash[:msg] ?>
   <p>
-    Access parameters are different from SAML spec.
+    #{flash[:msg]}
+  </p>
+  <?r end ?>
+  <p>
     Require parameters are following.
   </p>
   <ul id="param_list">

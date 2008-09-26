@@ -5,13 +5,12 @@ class MainController < Ramaze::Controller
   helper :aspect
 
   before(:index) {
-    check_access
-    check_sp
+    @params = request.params
+    check_request
+    check_sp(@params['entityID'])
   }
 
   def index
-    @params = request.params
-
     if @params['select_IdP']
       entity_id = @params['user_IdP']
       set_cdk(entity_id)
@@ -23,48 +22,82 @@ class MainController < Ramaze::Controller
   private
 
   def build_url(entity_id)
-    url  = request.params['return'].dup
+    url  = @params['return'].dup
     url << "&#{returnIDParam}=#{entity_id}"
   end
 
   #
-  # Checks HTTP GET request.
+  # Checks GET request.
   # Refer to [IdP Discovery Protocol 2.4.1].
   #
-  def check_access
-    if not request.params['entityID']
-      redirect Rs(:bad)
+  def check_request
+    if not @params['entityID']
+      bad_request('Access parameters are different from SAML spec.')
+    elsif @params['isPassive'] == 'true'
+      redirect @params['return']
     elsif request.cookies['_redirect_idp']
       redirect build_url(request.cookies['_redirect_idp'])
-    elsif request.params['isPassive'] == 'true'
-      redirect request.params['return']
     end
   end
 
   #
-  # Checks SP's entityID and return URL if use metadata.
+  # Checks SP's entityID and return parameter.
   # Refer to [IdP Discovery Protocol 2.5].
   #
-  def check_sp
-    entity_id =  request.params['entityID']
+  def check_sp(entity_id)
+    # Not include Relying Parties.
+    unless Ramaze::Global.SProviders.key?(entity_id)
+      bad_request("SP is not found in Relying Party.")
+    end
 
-    redirect Rs(:bad) unless Ramaze::Global.SProviders.has_key?(entity_id)
-    #redirect Rs(:bad) unless search_ds_url(entity_idrequest.params['return'])
+    end_point = get_end_point(@params['return'])
+    sprovider = Ramaze::Global.SProviders[entity_id]
+
+    # Case of 'return' parameter nothing.
+    unless end_point
+      # idpdisc MUST be present.
+      if sprovider.key?(:disc)
+        @params['return'] = sprovider[:disc][0]
+        return
+      else
+        bad_request('DS end point must be require.')
+      end
+    end
+
+    # Case of 'return' parameter existing.
+    if sprovider.key?(:disc) and
+        not sprovider[:disc].include?(end_point)
+      bad_request("'return' value is not found in Metadata.")
+    end
   end
 
   #
-  # Returns User DS end point URL.
+  # Returns DS end point URL from 'return' parameter.
+  # This return value is used to compare idpdisc 'Location'.
   #
-  def search_ds_url
-    
+  def get_end_point(return_url)
+    return nil unless return_url
+
+    require 'uri'
+    uri = URI.parse(return_url) rescue bad_request("End point URL is invaid.")
+    uri.scheme + '://' + uri.host + uri.path
   end
 
   #
+  # Redirects bad page and set the flash message.
+  #
+  def bad_request(msg)
+    flash[:msg] = msg
+    redirect Rs(:bad)
+  end
+
+  #
+  # Returns parameter name used to return the entityID of user selected IdP.
   # Returns 'entityID' if returnIDParam is empty.
   # Refer to 'returnIDParam' section of [IdP Discovery Protocol 2.4.1]. 
   #
   def returnIDParam
-    return_id = request.params['returnIDParam']
+    return_id = @params['returnIDParam']
     if return_id and not return_id.empty?
       return_id
     else
@@ -72,9 +105,13 @@ class MainController < Ramaze::Controller
     end
   end
 
+  #
+  # Returns display name existing name section of idp.yaml.
+  # This method is used, when existing the common domain cookie.
+  #
   def display_name(entity_id)
     Ramaze::Global.IdProviders.each_pair do |fed_name, idp|
-      if idp.has_key?(entity_id)
+      if idp.key?(entity_id)
         return idp[entity_id][:name] || entity_id
       end
     end
@@ -98,7 +135,7 @@ class MainController < Ramaze::Controller
 
   def get_cdk
     if cdk = request.cookies['_saml_idp']
-      cdk.split(' ').map { |id| id.unpack('m')[0] }
+      cdk.split(/ /).map { |id| id.unpack('m')[0] }
     else
       nil
     end
