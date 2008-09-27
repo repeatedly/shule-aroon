@@ -16,7 +16,7 @@ class MainController < Ramaze::Controller
       entity_id = @params['user_IdP']
       set_common_domain_cookie(entity_id)
       set_redirect_cookie(entity_id) if @params['bypass']
-      redirect  build_url(entity_id)
+      redirect build_uri(entity_id)
     else
       check_sp(@params['entityID']) if @config[:check_sp]
     end
@@ -27,17 +27,17 @@ class MainController < Ramaze::Controller
   #
   def clear
     response.delete_cookie(@config[:common_domain_cookie])
-    redirect Rs('?' + request.params['query'])
+    redirect Rs('?' + @params['query'])
   end
 
   private
 
   #
-  # Returns the redirect URL to SP
+  # Returns the redirect URI to SP
   #
-  def build_url(entity_id)
-    url  = @params['return'].dup
-    url << "&#{returnIDParam}=#{entity_id}"
+  def build_uri(entity_id)
+    uri  = @params['return'].dup
+    uri << "&#{returnIDParam}=#{entity_id}"
   end
 
   #
@@ -50,7 +50,7 @@ class MainController < Ramaze::Controller
     elsif @params['isPassive'] == 'true'
       redirect @params['return']
     elsif request.cookies[@config[:redirect_cookie]]
-      redirect build_url(request.cookies[@config[:redirect_cookie]])
+      redirect build_uri(request.cookies[@config[:redirect_cookie]])
     end
   end
 
@@ -86,15 +86,16 @@ class MainController < Ramaze::Controller
   end
 
   #
-  # Returns DS end point URL from 'return' parameter.
+  # Returns DS end point URI from 'return' parameter.
   # This return value is used to compare idpdisc 'Location'.
   #
-  def get_end_point(return_url)
-    return nil unless return_url
+  def get_end_point(return_uri)
+    return nil unless return_uri
 
     require 'uri'
-    uri = URI.parse(return_url) rescue bad_request("End point URL is invaid.")
-    uri.scheme + '://' + uri.host + uri.path
+    uri = URI.parse(return_uri) rescue bad_request('DS end point URI is invaid.')
+    uri = URI.split(return_uri)
+    uri[0] + '://' + uri[2] + (uri[3] || '') + uri[5]
   end
 
   #
@@ -102,7 +103,7 @@ class MainController < Ramaze::Controller
   #
   def bad_request(msg)
     flash[:msg] = msg
-    Ramaze::Log.warn("msg")
+    Ramaze::Log.warn(msg)
     redirect Rs(:bad)
   end
 
@@ -136,7 +137,7 @@ class MainController < Ramaze::Controller
   #
   # Set the common domain cookie.
   # Refer to [SAML Profile 2.0 4.3.1, 4.3.2]
-  #  
+  #
   def set_common_domain_cookie(idp)
     cdk = if cdk = get_common_domain_cookie
             cdk.delete(idp)
@@ -172,7 +173,7 @@ class MainController < Ramaze::Controller
       :value  => value,
       :domain => @config[:common_domain]
     }
-    cookie[:expires] = Time.now + @config[:expires] if @params['bypass'] == "permanent"
+    cookie[:expires] = Time.now + @config[:expires] if @params['bypass'] == 'permanent'
     cookie
   end
 end
