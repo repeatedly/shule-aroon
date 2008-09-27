@@ -1,12 +1,31 @@
-:adapter:              :mongrel         # Don't support webrick and Ebb, because don't treat multiple cookie
-:port:                 7000
-:common_domain:        null
+#
+# Start up
+#
+:adapter: :mongrel  # Don't support webrick and Ebb, because don't treat multiple cookie
+:port:    7000
+
+#
+# Cookie
+#
+:common_domain: null      # common_domain is trust circle host(if null, server's host).
+:check_sp:      yes       # Not require sp.yaml if no
+:expires:       31536000  # permanent cookie expire(3600 * 24 * 365)
+
+#
+# Display bad and error pages
+#
+:admin: 'admin'
+:mail:  'root@localhost'
+
+#
+# Logging(Support levels, error, warn, info, debug, dev)
+#
+:log_level:
+  - :error
+  - :warn
+
+####################
+# Don't edit below #
+####################
 :common_domain_cookie: '_saml_idp'
 :redirect_cookie:      '_redirect_idp'
-:check_sp:             yes              # Not require sp.yaml if no
-:expires:              31536000         # permanent cookie expire(3600 * 24 * 365)
-:admin:                'admin'          # Display bad and error pages
-:admin_mail:           'root@localhost' # ditto
-:log_level:                             # logging level
-  - :warn
-  - :error

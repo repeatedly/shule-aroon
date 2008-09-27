@@ -14,7 +14,7 @@ unless Ramaze::Log.loggers.size == 2
 end
 
 Ramaze::Global.add_option(:ds_config,   ds_config)
-Ramaze::Global.add_option(:SProviders,  YAML.load_file('./conf/sp.yaml'))  if ds_config[:check_sp]
+Ramaze::Global.add_option(:SProviders,  YAML.load_file('./conf/sp.yaml')) if ds_config[:check_sp]
 Ramaze::Global.add_option(:IdProviders, YAML.load_file('./conf/idp.yaml'))
 
 require 'controller/main'
