@@ -105,7 +105,6 @@ class MainController < Ramaze::Controller
   def get_end_point(return_uri)
     return nil unless return_uri
 
-    require 'uri'
     uri = URI.parse(return_uri) rescue bad_request('DS end point URI is invaid.')
     uri = URI.split(return_uri)
     uri[0] + '://' + uri[2] + (uri[3] || '') + uri[5]

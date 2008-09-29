@@ -25,7 +25,7 @@ Ruby License
 
 # Link
 
-## Shibboleth
+## SAML
 
 * [OASIS Security Services (SAML) TC](http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=security)
 

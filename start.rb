@@ -1,6 +1,8 @@
-require 'rubygems'
-require 'ramaze'
-require 'yaml'
+#!/usr/bin/env ruby
+
+%w[rubygems ramaze yaml uri].each do |lib|
+  require lib
+end
 
 # Measure for deamonize.
 Dir.chdir(__DIR__)
