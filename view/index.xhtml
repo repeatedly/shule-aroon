@@ -5,12 +5,12 @@
   </p>
 </div>
 
-<?r if cdk = get_common_domain_cookie ?>
+<?r if cookies = get_common_domain_cookie ?>
 <div id="recent_IdP">
   <p>Recently selected Identity Provider.</p>
   <ul>
-    <?r cdk.each do |entity_id| ?>
-    <li><a href="#{build_uri(entity_id)}">#{display_name(entity_id)}</a></li>
+    <?r cookies.each do |entity_id| ?>
+    <li><a href="#{build_uri(entity_id)}">#{get_attribute(entity_id)[:name] || entity_id}</a></li>
     <?r end ?>
   </ul>
   <form action="./clear" method="get">

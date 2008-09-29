@@ -1,0 +1,35 @@
+<div id="description">
+  <h2>Select your Identity Provider.</h2>
+  <p>
+    Select from following IdP list for Password change.
+  </p>
+</div>
+
+<?r if recent = get_recent_sites(get_common_domain_cookie) ?>
+<div id="recent_IdP">
+  <p>Recently selected Identity Provider.</p>
+  <?r recent.each_pair do |entity_id, value| ?>
+  <ul>
+    <li><a href="#{value[:site]}">#{value[:name]}</a></li>
+  </ul>
+  <?r end ?>
+</div>
+<?r end ?>
+
+<form id="select_IdP" action="./transfer" method="get">
+  <fieldset>
+    <legend>Identity Provider List</legend>
+    <select name="user_IdP">
+    <?r Ramaze::Global.IdProviders.each_pair do |fed_name, idp| ?>
+    <optgroup label="#{fed_name}">
+      <?r idp.each_pair do |entity_id, value| ?>
+      <?r if value[:site] ?>
+      <option value="#{value[:site]}">#{value[:name] || entity_id}</option>
+      <?r end ?>
+      <?r end ?>
+    </optgroup>
+    <?r end ?>
+    </select>
+    <input type="submit" name="select_IdP" value="Select" /><br />
+  </fieldset>
+</form>

@@ -30,6 +30,19 @@ class MainController < Ramaze::Controller
     redirect Rs('?' + @params['query'])
   end
 
+  #
+  # Transfers the user to Password change site.
+  #
+  def transfer
+    redirect @params['user_IdP'] if @params['user_IdP']
+
+    if entity_id = request.cookies[@config[:redirect_cookie]]
+      if site_url = get_attribute(entity_id)[:site]
+        redirect site_url
+      end
+    end
+  end
+
   private
 
   #
@@ -45,7 +58,7 @@ class MainController < Ramaze::Controller
   # Refer to [IdP Discovery Protocol 2.4.1].
   #
   def check_request
-    if not @params['entityID']
+    if not @params['entityID'] or @params['entityID'].empty?
       bad_request('Access parameters are different from SAML spec.')
     elsif @params['isPassive'] == 'true'
       redirect @params['return']
@@ -122,16 +135,33 @@ class MainController < Ramaze::Controller
   end
 
   #
-  # Returns display name existing name section of idp.yaml.
-  # This method is used, when existing the common domain cookie.
+  # Returns _entity_id_ attribute of idp.yaml.
   #
-  def display_name(entity_id)
+  def get_attribute(entity_id)
     Ramaze::Global.IdProviders.each_pair do |fed_name, idp|
       if idp.key?(entity_id)
-        return idp[entity_id][:name] || entity_id
+        return idp[entity_id]
       end
     end
-    entity_id
+    nil
+  end
+
+  #
+  # Returns recently selected IdP list that existing :site section.
+  #
+  def get_recent_sites(entity_ids)
+    recent = {}
+    Ramaze::Global.IdProviders.each do |fed_name, idp|
+      idp.each_pair do |entity_id, value|
+        if value[:site] and entity_ids and entity_ids.include?(entity_id)
+          recent[entity_id]        = {}
+          recent[entity_id][:site] = value[:site]
+          recent[entity_id][:name] = value[:name] || entity_id
+        end
+      end
+    end
+    recent = recent.empty? ? nil : recent
+    recent
   end
 
   #
