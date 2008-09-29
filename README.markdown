@@ -2,14 +2,15 @@
 
 The Discovery Service solves the IdP discovery problem.
 
-Ruby-DS is the Ruby based simple implementation using Ramaze.
+Ruby DS is the Ruby based simple implementation using Ramaze.
 
-# Feature
+# Features
 
 * Support Discovery Service Protocol
 * Auto redirection to previous selected IdP
+* Transfer the user to Password change site
 
-# Require
+# Requires
 
 * [Ruby](http://www.ruby-lang.org/)
 * [Ramaze](http://ramaze.net/)
@@ -26,13 +27,13 @@ Ruby License
 
 ## Shibboleth
 
+* [OASIS Security Services (SAML) TC](http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=security)
+
+  OASIS Security Services Technical Committee
+
 * [Shibboleth](http://shibboleth.internet2.edu/)
 
   Shibboleth official site.
-
-* [Shibboleth 2 Documentation](https://spaces.internet2.edu/display/SHIB2/Home)
-
-  Shibboleth 2 Wiki.
 
 ## Other implementation
 
@@ -44,4 +45,4 @@ Ruby License
 
   PHP based DS written by SWITCHaai.
 
-Ruby-DS UI refer to above projects.
+Ruby DS UI refer to above projects.
