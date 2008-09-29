@@ -8,7 +8,6 @@
 # Cookie
 #
 :common_domain: null      # common_domain is trust circle host(if null, server's host).
-:check_sp:      yes       # Not require sp.yaml if no
 :expires:       31536000  # permanent cookie expire(3600 * 24 * 365)
 
 #
@@ -23,6 +22,7 @@
 :log_level:
   - :error
   - :warn
+
 
 ####################
 # Don't edit below #

@@ -18,7 +18,7 @@ class MainController < Ramaze::Controller
       set_redirect_cookie(entity_id) if @params['bypass']
       redirect build_uri(entity_id)
     else
-      check_sp(@params['entityID']) if @config[:check_sp]
+      check_sp(@params['entityID'])
     end
   end
 
