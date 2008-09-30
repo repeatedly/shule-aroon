@@ -2,22 +2,22 @@
 
 <?r unless recent or others ?>
 <div id="description">
-  <h2>No entries.</h2>
+  <h2>[[no_desc]]</h2>
   <p>
-    Password change sites don't exist Identity Providers.
+    [[no_text]]
   </p>
 </div>
 <?r else ?>
 <div id="description">
-  <h2>Select your Identity Provider.</h2>
+  <h2>[[main]]</h2>
   <p>
-    Select from following IdP list for Password change.
+    [[trans]]
   </p>
 </div>
 
 <?r if recent ?>
 <div id="recent_IdP">
-  <p>Recently selected Identity Provider.</p>
+  <p>[[recent]]</p>
   <?r recent.each_pair do |entity_id, value| ?>
   <ul>
     <li><a href="#{value[:site]}">#{value[:name]}</a></li>
@@ -29,7 +29,7 @@
 <?r if others ?>
 <form id="select_IdP" action="./transfer" method="get">
   <fieldset>
-    <legend>Identity Provider List</legend>
+    <legend>[[legend]]</legend>
     <select name="user_IdP">
     <?r others.each_pair do |fed_name, idp| ?>
     <optgroup label="#{fed_name}">
@@ -39,7 +39,7 @@
     </optgroup>
     <?r end ?>
     </select>
-    <input type="submit" name="select_IdP" value="Select" /><br />
+    <input type="submit" name="select_IdP" value="[[select]]" /><br />
   </fieldset>
 </form>
 <?r end ?>

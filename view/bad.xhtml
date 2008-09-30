@@ -1,19 +1,19 @@
 <div id="description">
-  <h2>Bad request!</h2>
+  <h2>[[bad]]</h2>
   <?r if flash[:msg] ?>
   <p>
     #{flash[:msg]}
   </p>
   <?r end ?>
   <p>
-    Require parameters are following.
+    [[bad_text]]
   </p>
   <ul id="param_list">
-    <li><span class="annotation">MUST</span> be present.</li>
+    <li><span class="annotation">MUST</span></li>
     <ul class="real_param">
       <li>entityID</li>
     </ul>
-    <li><span class="annotation">MAY</span> be present.</li>
+    <li><span class="annotation">MAY</span></li>
     <ul class="real_param">
       <li>return</li>
       <li>policy</li>
@@ -22,16 +22,16 @@
     </ul>
   </ul>
   <p>
-    Please contact Administrator if display this page in an orderly manner.
+    [[bad_warn]]
   </p>
-  <h2>Contact Info</h2>
+  <h2>[[info]]</h2>
   <table class="info" border="0">
     <tr>
-      <td>Admin</td>
+      <td>[[admin]]</td>
       <td class="print">#{@config[:admin]}</td>
     </tr>
     <tr>
-      <td>Mail</td>
+      <td>[[mail]]</td>
       <td class="print">#{@config[:mail]}</td>
     </tr>
   </table>

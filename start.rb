@@ -15,6 +15,15 @@ unless Ramaze::Log.loggers.size == 2
                                           ds_config[:log_level])
 end
 
+# for Localilzation
+Ramaze::Tool::Localize.trait :default_language => ds_config[:default_language],
+                             :languages        => ds_config[:languages],
+                             :collect          => false,
+                             :file             => lambda{ |l| 
+                               Ramaze::Global.root/"conf/locale_#{l}.yaml" 
+                             }
+Ramaze::Dispatcher::Action::FILTER << Ramaze::Tool::Localize
+
 Ramaze::Global.add_option(:ds_config,   ds_config)
 Ramaze::Global.add_option(:SProviders,  YAML.load_file('./conf/sp.yaml'))
 Ramaze::Global.add_option(:IdProviders, YAML.load_file('./conf/idp.yaml'))

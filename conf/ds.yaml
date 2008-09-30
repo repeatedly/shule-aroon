@@ -11,6 +11,14 @@
 :expires:       31536000  # permanent cookie expire(3600 * 24 * 365)
 
 #
+# View
+#
+:default_language: 'jp'  # Using view that user don't support localization.
+:languages:              # Support localization languages
+  - jp
+  - en
+
+#
 # Display bad and error pages
 #
 :admin: 'admin'

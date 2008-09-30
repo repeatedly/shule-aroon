@@ -1,6 +1,10 @@
+2008-09-30  tama  <repeatedly@gmail.com>
+
+	* Implement the localize view.
+
 2008-09-29  tama  <repeatedly@gmail.com>
 
-	* Add user transfer function.
+	* Add the user transfer function.
 
 2008-09-24  tama  <repeatedly@gmail.com>
 

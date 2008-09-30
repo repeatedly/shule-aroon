@@ -1,13 +1,13 @@
 <div id="description">
-  <h2>Select your Identity Provider</h2>
+  <h2>[[main]]</h2>
   <p>
-    Select from following IdP list.
+    [[index]]
   </p>
 </div>
 
 <?r if cookies = get_common_domain_cookie ?>
 <div id="recent_IdP">
-  <p>Recently selected Identity Provider.</p>
+  <p>[[recent]]</p>
   <ul>
     <?r cookies.each do |entity_id| ?>
     <li><a href="#{build_uri(entity_id)}">#{get_attribute(entity_id)[:name] || entity_id}</a></li>
@@ -15,14 +15,14 @@
   </ul>
   <form action="./clear" method="get">
     <input type="hidden" name="query" value="#{request.query_string}">
-    <input type="submit" value="Clear">
+    <input type="submit" value="[[clear]]">
   </form>
 </div>
 <?r end ?>
 
 <form id="select_IdP" action="./" method="get">
   <fieldset>
-    <legend>Identity Provider List</legend>
+    <legend>[[legend]]</legend>
     <input type="hidden" name="entityID" value="#{@params['entityID']}" />
     <input type="hidden" name="return" value="#{@params['return']}" />
     <input type="hidden" name="returnIDParam" value="#{returnIDParam}" />
@@ -35,11 +35,11 @@
     </optgroup>
     <?r end ?>
     </select>
-    <input type="submit" name="select_IdP" value="Select" /><br /><br />
-    <p id="bypass_conf">DS bypass configuration.</p>
+    <input type="submit" name="select_IdP" value="[[select]]" /><br /><br />
+    <p id="bypass_conf">[[bypass]]</p>
     <input type="radio" name="bypass" value="remember" id="remember" />
-    <label for="remember">Remember this selection while closing browser.</label><br />
+    <label for="remember">[[remember]]</label><br />
     <input type="radio" name="bypass" value="permanent" id="permanent" />
-    <label for="permanent">Remember this selection permanently.</label>
+    <label for="permanent">[[permanent]]</label>
   </fieldset>
 </form>
