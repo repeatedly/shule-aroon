@@ -61,6 +61,15 @@ a:active	{
     margin: 1em 1em;
 }
 
+.info {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+.info td.print {
+    padding-left: 0.5em;
+}
+
 .annotation {
     font-weight: bold;
     color: #ff0000;
