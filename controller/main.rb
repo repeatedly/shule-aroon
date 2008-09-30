@@ -94,7 +94,7 @@ class MainController < Ramaze::Controller
     # Case of 'return' parameter existing.
     if sprovider.key?(:disc) and
         not sprovider[:disc].include?(end_point)
-      bad_request("'return' value is not found in Metadata.")
+      bad_request("'return' parameter is not found in Metadata.")
     end
   end
 
@@ -105,9 +105,10 @@ class MainController < Ramaze::Controller
   def get_end_point(return_uri)
     return nil unless return_uri
 
-    uri = URI.parse(return_uri) rescue bad_request('DS end point URI is invaid.')
     uri = URI.split(return_uri)
     uri[0] + '://' + uri[2] + (uri[3] || '') + uri[5]
+  rescue
+    bad_request("'return' parameter is invalid URI")
   end
 
   #
@@ -146,21 +147,30 @@ class MainController < Ramaze::Controller
   end
 
   #
-  # Returns recently selected IdP list that existing :site section.
+  # Returns recently selected and other IdP list that existing :site section.
   #
-  def get_recent_sites(entity_ids)
-    recent = {}
+  def get_sites(entity_ids)
+    recent, others = {}, Hash.new { |h, k| h[k] = {} }
+
     Ramaze::Global.IdProviders.each do |fed_name, idp|
       idp.each_pair do |entity_id, value|
-        if value[:site] and entity_ids and entity_ids.include?(entity_id)
-          recent[entity_id]        = {}
-          recent[entity_id][:site] = value[:site]
-          recent[entity_id][:name] = value[:name] || entity_id
+        if value.key?(:site)
+          if entity_ids and entity_ids.include?(entity_id)
+            recent[entity_id]        = {}
+            recent[entity_id][:site] = value[:site]
+            recent[entity_id][:name] = value[:name] || entity_id
+          else
+            others[fed_name][entity_id]        = {}
+            others[fed_name][entity_id][:site] = value[:site]
+            others[fed_name][entity_id][:name] = value[:name] || entity_id
+          end
         end
       end
     end
+
     recent = recent.empty? ? nil : recent
-    recent
+    others = others.empty? ? nil : others
+    return recent, others
   end
 
   #

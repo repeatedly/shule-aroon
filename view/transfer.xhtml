@@ -1,3 +1,13 @@
+<?r recent, others = get_sites(get_common_domain_cookie) ?>
+
+<?r unless recent or others ?>
+<div id="description">
+  <h2>No entries.</h2>
+  <p>
+    Password change sites don't exist Identity Providers.
+  </p>
+</div>
+<?r else ?>
 <div id="description">
   <h2>Select your Identity Provider.</h2>
   <p>
@@ -5,7 +15,7 @@
   </p>
 </div>
 
-<?r if recent = get_recent_sites(get_common_domain_cookie) ?>
+<?r if recent ?>
 <div id="recent_IdP">
   <p>Recently selected Identity Provider.</p>
   <?r recent.each_pair do |entity_id, value| ?>
@@ -16,16 +26,15 @@
 </div>
 <?r end ?>
 
+<?r if others ?>
 <form id="select_IdP" action="./transfer" method="get">
   <fieldset>
     <legend>Identity Provider List</legend>
     <select name="user_IdP">
-    <?r Ramaze::Global.IdProviders.each_pair do |fed_name, idp| ?>
+    <?r others.each_pair do |fed_name, idp| ?>
     <optgroup label="#{fed_name}">
       <?r idp.each_pair do |entity_id, value| ?>
-      <?r if value[:site] ?>
-      <option value="#{value[:site]}">#{value[:name] || entity_id}</option>
-      <?r end ?>
+      <option value="#{value[:site]}">#{value[:name]}</option>
       <?r end ?>
     </optgroup>
     <?r end ?>
@@ -33,3 +42,6 @@
     <input type="submit" name="select_IdP" value="Select" /><br />
   </fieldset>
 </form>
+<?r end ?>
+
+<?r end ?>
