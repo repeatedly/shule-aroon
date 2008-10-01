@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+$KCODE = 'u' if RUBY_VERSION < '1.9.0'
 
 %w[rubygems ramaze yaml uri].each do |lib|
   require lib
@@ -19,9 +22,7 @@ end
 Ramaze::Tool::Localize.trait :default_language => ds_config[:default_language],
                              :languages        => ds_config[:languages],
                              :collect          => false,
-                             :file             => lambda{ |l| 
-                               Ramaze::Global.root/"conf/locale_#{l}.yaml" 
-                             }
+                             :file             => 'conf/locale/%s.yaml' 
 Ramaze::Dispatcher::Action::FILTER << Ramaze::Tool::Localize
 
 Ramaze::Global.add_option(:ds_config,   ds_config)

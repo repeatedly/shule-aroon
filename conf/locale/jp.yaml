@@ -1,0 +1,27 @@
+--- 
+404_DS: DSのエンドポイントは必須です.
+404_RP: "SPがRelying Partyに見つかりません."
+404_idpdisc: Metadataにreturnパラメータの値が見つかりません.
+admin: 管理者
+bad: 不正なリクエストです!
+bad_text: "必要なパラメータは下記の通りです. "
+bad_warn: "もし正しい操作でこのページが表示されたのなら，管理者へと連絡して下さい. "
+bypass: DSの迂回設定(単一IdPユーザ向け).
+clear: クリア
+err: エラー!
+err_text: 管理者へと連絡して下さい.
+index: "Identity Providerを選択して下さい"
+index_text: 下記のリストからIdPを選択して下さい.
+info: 連絡先
+invalid_URI: returnパラメータの値が不正なURIです.
+legend: "Identity Provider リスト"
+mail: メールアドレス
+no_site: エントリがありません.
+no_site_text: IdPの中にパスワード変更サイトが登録されていません.
+not_SAML: リクエストパラメータがSAML仕様と異なっています.
+permanent: これからずっと選択を保存する.
+recent: "最近選択したIdentity Provider."
+remember: ブラウザを閉じるまで選択を保存する.
+select: 送信
+transfer: パスワード変更サイトを選択して下さい.
+transfer_text: パスワード変更のため下記のリストからIdPを選択して下さい.

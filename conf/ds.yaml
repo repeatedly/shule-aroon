@@ -13,7 +13,7 @@
 #
 # View
 #
-:default_language: 'jp'  # Using view that user don't support localization.
+:default_language: 'en'  # Using view that user don't support localization.
 :languages:              # Support localization languages
   - jp
   - en

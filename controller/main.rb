@@ -59,7 +59,7 @@ class MainController < Ramaze::Controller
   #
   def check_request
     if not @params['entityID'] or @params['entityID'].empty?
-      bad_request('Access parameters are different from SAML spec.')
+      bad_request('not_SAML')
     elsif @params['isPassive'] == 'true'
       redirect @params['return']
     elsif request.cookies[@config[:redirect_cookie]]
@@ -74,7 +74,7 @@ class MainController < Ramaze::Controller
   def check_sp(entity_id)
     # Not include Relying Parties.
     unless Ramaze::Global.SProviders.key?(entity_id)
-      bad_request('SP is not found in Relying Party.')
+      bad_request('404_RP')
     end
 
     end_point = get_end_point(@params['return'])
@@ -87,14 +87,14 @@ class MainController < Ramaze::Controller
         @params['return'] = sprovider[:disc][0]
         return
       else
-        bad_request('DS end point must be require.')
+        bad_request('404_DS')
       end
     end
 
     # Case of 'return' parameter existing.
     if sprovider.key?(:disc) and
         not sprovider[:disc].include?(end_point)
-      bad_request("'return' parameter is not found in Metadata.")
+      bad_request('404_idpdisc')
     end
   end
 
@@ -108,7 +108,7 @@ class MainController < Ramaze::Controller
     uri = URI.split(return_uri)
     uri[0] + '://' + uri[2] + (uri[3] || '') + uri[5]
   rescue
-    bad_request("'return' parameter is invalid URI")
+    bad_request('invalid_URI')
   end
 
   #
@@ -116,7 +116,7 @@ class MainController < Ramaze::Controller
   #
   def bad_request(msg)
     flash[:msg] = msg
-    Ramaze::Log.warn(msg)
+    Ramaze::Log.warn(Ramaze::Tool::Localize.localize(msg, @config[:default_language]))
     redirect Rs(:bad)
   end
 

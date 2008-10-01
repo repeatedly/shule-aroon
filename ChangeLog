@@ -1,3 +1,9 @@
+2008-10-01  tama  <repeatedly@gmail.com>
+
+	* Complete localize view template.
+
+	* Add localegenerator tool.
+
 2008-09-30  tama  <repeatedly@gmail.com>
 
 	* Implement the localize view.
