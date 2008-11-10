@@ -58,14 +58,14 @@ Use tools/m2p.rb to create idp.yaml from metadata.
 ## Format
 
     Test Federation: (1)
-      https://idp2.ait230.tokushima-u.ac.jp/idp/shibboleth: (2)
-        :SSO: https://idp2.ait230.tokushima-u.ac.jp/idp/profile/Shibboleth/SSO
+      https://idp.example.org/idp/shibboleth: (2)
+        :SSO: https://idp.example.org/idp/profile/Shibboleth/SSO
         :name: "IdP name"
-        :site: 'https://idp2.ait230.tokushima-u.ac.jp/'
+        :site: 'https://idp.example.org/'
 
 * (1)
 
-Federation name using optgroup element.
+Federation name for optgroup element.
 
 * (2)
 
@@ -77,7 +77,7 @@ SSO end point URI for WAYF(Current DS don't use, because don't support WAYF prot
 
 * :name(Option)
 
-IdP name using option element.
+IdP name for option element.
 Represent a OrganizationDisplayName element of IdP entity in metadata.
 
 * :site(Option)
@@ -93,10 +93,10 @@ Use tools/m2p.rb to create sp.yaml from metadata.
 
 ## Format
 
-    https://n.ait.tokushima-u.ac.jp/shibboleth: (1)
+    https://sp.example.org/shibboleth: (1)
       :disc:
-      - https://n.ait.tokushima-u.ac.jp/Shibboleth.sso/DS
-      - http://n.ait.tokushima-u.ac.jp/Shibboleth.sso/DS
+      - https://sp.example.org/Shibboleth.sso/DS
+      - http://sp.example.org/Shibboleth.sso/DS
 
 * (1)
 
