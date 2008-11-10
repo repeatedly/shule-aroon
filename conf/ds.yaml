@@ -1,32 +1,22 @@
-#
-# Start up
-#
-:adapter: :mongrel  # Don't support webrick and Ebb, because don't treat multiple cookie
+# Refer to conf/README.markdown
+
+:adapter: :mongrel
 :port:    7000
 
-#
-# Cookie
-#
-:common_domain: null      # common_domain is trust circle host(if null, server's host).
-:expires:       31536000  # permanent cookie expire(3600 * 24 * 365)
+:common_domain: null
+:expires:       31536000
 
-#
-# View
-#
-:default_language: 'en'  # Using view that user don't support localization.
-:languages:              # Support localization languages
-  - jp
-  - en
+:default_language: 'en'
+:languages:
+  - 'jp'
+  - 'en'
 
-#
-# Display bad and error pages
-#
 :admin: 'admin'
 :mail:  'root@localhost'
 
-#
-# Logging(Support levels, error, warn, info, debug, dev)
-#
+:org_name: 'Test Federation org'
+:org_link: 'http://www.example.com/'
+
 :log_level:
   - :error
   - :warn
