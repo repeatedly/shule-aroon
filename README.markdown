@@ -4,20 +4,20 @@ The Discovery Service solves the IdP discovery problem.
 
 Ruby DS is the Ruby based simple implementation using Ramaze.
 
-# Features
+# Feature
 
 * Support Discovery Service Protocol
 * Auto redirection to previous selected IdP
 * Transfer the user to Password change site
 
-# Requires
+# Require
 
 * [Ruby](http://www.ruby-lang.org/)
 * [Ramaze](http://ramaze.net/)
 
-# Contact
+# Author
 
-tama <<repeatedly@gmail.com>>
+tama
 
 # License
 

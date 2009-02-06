@@ -8,13 +8,14 @@ $KCODE = 'u' if RUBY_VERSION < '1.9.0'
 end
 
 # Measure for deamonize.
-Dir.chdir(__DIR__)
+$:.unshift(__DIR__)
+ Dir.chdir(__DIR__)
 
 ds_config = YAML.load_file('./conf/ds.yaml')
 
 unless Ramaze::Log.loggers.size == 2
   Ramaze::Log.loggers <<
-    Ramaze::Logging::Logger::Informer.new("log/ds_#{Time.now.strftime('%Y%m%d')}.log",
+    Ramaze::Logger::Informer.new("log/ds_#{Time.now.strftime('%Y%m%d')}.log",
                                           ds_config[:log_level])
 end
 
@@ -22,7 +23,9 @@ end
 Ramaze::Tool::Localize.trait :default_language => ds_config[:default_language],
                              :languages        => ds_config[:languages],
                              :collect          => false,
-                             :file             => 'conf/locale/%s.yaml' 
+                             :file             => 'conf/locale/%s.yaml'
+# @@@BUG@@@
+# Localize module is unable to work at Ruby 1.9.
 Ramaze::Dispatcher::Action::FILTER << Ramaze::Tool::Localize
 
 Ramaze::Global.add_option(:ds_config,   ds_config)
