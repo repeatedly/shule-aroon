@@ -1,6 +1,6 @@
 # Refer to conf/README.markdown
 
-:adapter: :mongrel
+:adapter: :webrick
 :port:    7000
 
 :common_domain: null
