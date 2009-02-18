@@ -1,0 +1,14 @@
+<div id="description">
+  <h2>[[list]]</h2>
+  <p>
+    [[list_text]]
+  </p>
+</div>
+
+<div id="recent_IdP">
+  <ul>
+    <?r Ramaze::Global.SProviders.each do |id, info| ?>
+    <li><a href="#{info[:url]}">#{info[:name] || id}</a></li>
+    <?r end ?>
+  </ul>
+</div>
