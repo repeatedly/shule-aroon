@@ -15,6 +15,8 @@ index_text: 下記のリストからIdPを選択して下さい.
 info: 連絡先
 invalid_URI: returnパラメータの値が不正なURIです.
 legend: "Identity Provider リスト"
+list: "Service Provider 一覧"
+list_text: 現在利用可能なSP
 mail: メールアドレス
 no_site: エントリがありません.
 no_site_text: IdPの中にパスワード変更サイトが登録されていません.

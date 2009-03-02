@@ -1,6 +1,7 @@
-# Refer to conf/README.markdown
 --- 
 https://sp.example.org/shibboleth-sp: 
+  :name: Your Service
   :disc: 
   - http://sp.example.org/Shibboleth.sso/DS
   - https://sp.example.org/Shibboleth.sso/DS
+  :url: http://sp.example.org/

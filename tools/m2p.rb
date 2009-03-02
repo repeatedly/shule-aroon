@@ -66,6 +66,7 @@ class M2P
     :Entity   => 'EntityDescriptor',
     :IdP      => 'IDPSSODescriptor',
     :IdPSSO   => 'IDPSSODescriptor/SingleSignOnService',
+    :Org      => 'Organization',
     :Display  => 'Organization/OrganizationDisplayName',
     :SPDisc   => 'SPSSODescriptor/Extensions/idpdisc:DiscoveryResponse',
     :Binding  => 'urn:mace:shibboleth:1.0:profiles:AuthnRequest'
@@ -185,7 +186,7 @@ class M2P
         providers[entity_id][:disc] << ds.attributes['Location']
       end
 
-      #set_name(elem, providers[entity_id])
+      set_org(elem, providers[entity_id])
     end
 
     providers
@@ -195,8 +196,20 @@ class M2P
   # Sets the display name if OrganizationDisplayName element exist.
   #
   def set_name(element, provider)
-    org_name = element.get_elements(SearchElements[:Display])
-    provider[:name] = org_name[0].text unless org_name.empty?
+    name = element.get_elements(SearchElements[:Org] + '/OrganizationDisplayName')
+    provider[:name] = name[0].text unless name.empty?
+  end
+
+  #
+  # Sets the display name if OrganizationDisplayName element exist.
+  #
+  def set_org(element, provider)
+    org = element.get_elements(SearchElements[:Org])[0]
+    {:name => 'OrganizationDisplayName',
+     :url  => 'OrganizationURL'}.each do |key, name|
+      info = org.elements[name]
+      provider[key] = info.text if info
+    end if org
   end
 end
 

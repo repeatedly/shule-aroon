@@ -15,14 +15,6 @@ Ruby DS is the Ruby based simple implementation using Ramaze.
 * [Ruby](http://www.ruby-lang.org/)
 * [Ramaze](http://ramaze.net/)
 
-# Author
-
-tama
-
-# License
-
-Ruby License
-
 # Link
 
 ## SAML
@@ -46,3 +38,9 @@ Ruby License
   PHP based DS written by SWITCHaai.
 
 Ruby DS UI refer to above projects.
+
+# Copyright
+
+    Copyright (c) 2008-2009 Masahiro Nakagawa
+
+This application is released under the Ruby license.

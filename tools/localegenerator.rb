@@ -15,17 +15,19 @@ end
 
 class LocaleGenerator
   Keywords = [
-  # common(0 - 5)
+  # common
   'recent', 'legend', 'select', 'info', 'admin', 'mail',
-  # index(6 - 11)
+  # index
   'index', 'index_text', 'clear', 'bypass', 'remember', 'permanent',
-  # transfer(12 - 15)
+  # list
+  'list', 'list_text',
+  # transfer
   'transfer', 'transfer_text', 'no_site', 'no_site_text',
-  # bad(16 - 18)
+  # bad
   'bad', 'bad_text', 'bad_warn',
-  # error(19 - 20)
+  # error
   'err', 'err_text',
-  # flash(21 - 25)
+  # flash
   'not_SAML', '404_RP', '404_DS', '404_idpdisc', 'invalid_URI'
   ]
 
@@ -46,6 +48,9 @@ class LocaleGenerator
     'DS bypass configuration(for single IdP user)',
     'Remember this selection while closing browser.',
     'Remember this selection permanently.',
+    # list
+    'Service Provider list',
+    'Currently available SP',
     # transfer
     'Select your password change site',
     'Select from following IdP list for Password change.',
@@ -81,6 +86,9 @@ class LocaleGenerator
     'DSの迂回設定(単一IdPユーザ向け).',
     'ブラウザを閉じるまで選択を保存する.',
     'これからずっと選択を保存する.',
+    # list
+    'Service Provider 一覧',
+    '現在利用可能なSP',
     # transfer
     'パスワード変更サイトを選択して下さい.',
     'パスワード変更のため下記のリストからIdPを選択して下さい.',
