@@ -1,8 +1,8 @@
 # About
 
-The Discovery Service solves the IdP discovery problem.
+The Discovery Service solves the IdP discovery problem on SAML.
 
-Ruby DS is the Ruby based simple implementation using Ramaze.
+Shule Aroon is the Ruby based implementation.
 
 # Feature
 
@@ -25,7 +25,11 @@ Ruby DS is the Ruby based simple implementation using Ramaze.
 
 * [Shibboleth](http://shibboleth.internet2.edu/)
 
-  Shibboleth official site.
+  Shibboleth official site
+
+* [Discovery Service specification](http://www.oasis-open.org/committees/download.php/28049/sstc-saml-idp-discovery-cs-01.pdf)
+
+  Identity Provider Discovery Service Protocol and Profile(Link to PDF)
 
 ## Other implementation
 
@@ -37,10 +41,10 @@ Ruby DS is the Ruby based simple implementation using Ramaze.
 
   PHP based DS written by SWITCHaai.
 
-Ruby DS UI refer to above projects.
+Shule Aroon UI refers to above projects.
 
 # Copyright
 
     Copyright (c) 2008-2009 Masahiro Nakagawa
 
-This application is released under the Ruby license.
+Shule Aroon is released under the Ruby license.
