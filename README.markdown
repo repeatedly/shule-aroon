@@ -27,9 +27,9 @@ Shule Aroon is the Ruby based implementation.
 
   Shibboleth official site
 
-* [Discovery Service specification](http://www.oasis-open.org/committees/download.php/28049/sstc-saml-idp-discovery-cs-01.pdf)
+* [Discovery Service specification](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.html)
 
-  Identity Provider Discovery Service Protocol and Profile(Link to PDF)
+  Identity Provider Discovery Service Protocol and Profile
 
 ## Other implementation
 
