@@ -54,7 +54,7 @@ class LocaleGenerator
     # transfer
     'Select your password change site',
     'Select from following IdP list for Password change.',
-    'No entries.',
+    'No entries',
     'Password change sites don\'t exist Identity Providers.',
     # bad
     'Bad request!',

@@ -18,7 +18,7 @@ legend: "Identity Provider List"
 list: "Service Provider list"
 list_text: "Currently available SP"
 mail: Mail
-no_site: "No entries."
+no_site: "No entries"
 no_site_text: "Password change sites don't exist Identity Providers."
 not_SAML: "Request parameters are different from SAML spec."
 permanent: "Remember this selection permanently."
