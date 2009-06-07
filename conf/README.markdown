@@ -1,18 +1,17 @@
 # Documentation for Configuration
 
-Ruby DS configuration files are YAML format.
+ShuleAroon configuration files are YAML format.
 
-# DS.yaml
+# ds.yaml
 
-Ruby DS basic configuration.
+ShuleAroon basic configuration.
 Configuration parameters are below.
 Value type is shown in parentheses.
 
-* :adapter(Symbol)
+* :handler(Symbol)
 
 One of Ramaze support application servers.
-Don't support WEBrick and Ebb at the moment, 
-because don't treat multiple cookie.
+Don't support Ebb, because don't treat multiple cookie at the moment.
 
 * :port(Interger)
 
@@ -25,30 +24,17 @@ If null, server's domain.
 
 * :expires(Integer)
 
-Use the permanent cookie expire.
+Use the permanent cookie expires.
 Default value is 31536000(3600 * 24 * 365).
-
-* :default_language(String)
-
-Use view that user don't support localization.
-
-* :languages(String array)
-
-Support localization languages.
-This value has to be locale file name.
 
 * :admin & :mail(String)
 
 Contact infomation.
 
-* :org_name & :org_link(String)
+* :fed_name & :fed_link(String)
 
-Organaization information that the DS belongs to.
+Federation information that DS belongs to.
 These values use the view footer.
-
-* :log_level(Symbol array)
-
-Support levels are error, warn, info, debug, dev.
 
 # idp.yaml
 
@@ -106,7 +92,7 @@ SP's entityID.
 
 Represent a Location attribute of a idpdisc:DiscoveryResponse in metadata.
 
-# Local
+# Locale
 
 Message mapping for localize view.
 File name format is two letter that Accept-Language of request header field.

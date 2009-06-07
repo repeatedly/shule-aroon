@@ -1,12 +1,12 @@
 <div id="description">
-  <h2>[[bad]]</h2>
+  <h2>{bad}</h2>
   <?r if flash[:msg] ?>
   <p>
-    [[#{flash[:msg]}]]
+    #{flash[:msg]}
   </p>
   <?r end ?>
   <p>
-    [[bad_text]]
+    {bad_text}
   </p>
   <ul id="param_list">
     <li><span class="annotation">MUST</span></li>
@@ -22,17 +22,17 @@
     </ul>
   </ul>
   <p>
-    [[bad_warn]]
+    {bad_warn}
   </p>
-  <h2>[[info]]</h2>
+  <h2>{info}</h2>
   <table class="info" border="0">
     <tr>
-      <td>[[admin]]</td>
-      <td class="print">#{@config[:admin]}</td>
+      <td>{admin}</td>
+      <td class="print">#{@config.admin.name}</td>
     </tr>
     <tr>
-      <td>[[mail]]</td>
-      <td class="print">#{@config[:mail]}</td>
+      <td>{mail}</td>
+      <td class="print">#{@config.admin.mail}</td>
     </tr>
   </table>
 </div>

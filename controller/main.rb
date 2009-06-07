@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class MainController < Ramaze::Controller
-  layout '/page'
-  helper :aspect
+  layout :default
+  helper :localize
+  engine :Etanni
 
   before_all {
-    @config = Ramaze::Global.ds_config
+    @config = ShuleAroon.options
     @params = request.params
   }
 
@@ -26,8 +27,8 @@ class MainController < Ramaze::Controller
   # Clears the common domain cookie.
   #
   def clear
-    response.delete_cookie(@config[:common_domain_cookie])
-    redirect Rs('?' + @params['query'])
+    response.delete_cookie(@config.common_domain_cookie)
+    redirect r('?' + @params['query'])
   end
 
   #
@@ -36,11 +37,20 @@ class MainController < Ramaze::Controller
   def transfer
     redirect @params['user_IdP'] if @params['user_IdP']
 
-    if entity_id = request.cookies[@config[:redirect_cookie]]
+    if entity_id = request.cookies[@config.redirect_cookie]
       if site_url = get_attribute(entity_id)[:site]
         redirect site_url
       end
     end
+  end
+
+  #
+  # for Localize filter
+  #
+  alias :raw_wrap_action_call :wrap_action_call
+
+  def wrap_action_call(action, &block)
+    localize(raw_wrap_action_call(action, &block))
   end
 
   private
@@ -59,11 +69,11 @@ class MainController < Ramaze::Controller
   #
   def check_request
     if not @params['entityID'] or @params['entityID'].empty?
-      bad_request('not_SAML')
+      bad_request('Request parameters are different from SAML.')
     elsif @params['isPassive'] == 'true'
       redirect @params['return']
-    elsif request.cookies[@config[:redirect_cookie]]
-      redirect build_uri(request.cookies[@config[:redirect_cookie]])
+    elsif request.cookies[@config.redirect_cookie]
+      redirect build_uri(request.cookies[@config.redirect_cookie])
     end
   end
 
@@ -73,12 +83,12 @@ class MainController < Ramaze::Controller
   #
   def check_sp(entity_id)
     # Not include Relying Parties.
-    unless Ramaze::Global.SProviders.key?(entity_id)
-      bad_request('404_RP')
+    unless @config.sproviders.key?(entity_id)
+      bad_request('SP is not found in Relying Party.')
     end
 
     end_point = get_end_point(@params['return'])
-    sprovider = Ramaze::Global.SProviders[entity_id]
+    sprovider = @config.sproviders[entity_id]
 
     # Case of 'return' parameter nothing.
     unless end_point
@@ -87,14 +97,14 @@ class MainController < Ramaze::Controller
         @params['return'] = sprovider[:disc][0]
         return
       else
-        bad_request('404_DS')
+        bad_request('DS end point must be require.')
       end
     end
 
     # Case of 'return' parameter existing.
     if sprovider.key?(:disc) and
         not sprovider[:disc].include?(end_point)
-      bad_request('404_idpdisc')
+      bad_request("'return' parameter is not found in Metadata.")
     end
   end
 
@@ -108,7 +118,7 @@ class MainController < Ramaze::Controller
     uri = URI.split(return_uri)
     uri[0] + '://' + uri[2] + (uri[3] || '') + uri[5]
   rescue
-    bad_request('invalid_URI')
+    bad_request("'return' paratemer is invalid URI")
   end
 
   #
@@ -116,8 +126,8 @@ class MainController < Ramaze::Controller
   #
   def bad_request(msg)
     flash[:msg] = msg
-    Ramaze::Log.warn(Ramaze::Tool::Localize.localize(msg, @config[:default_language]))
-    redirect Rs(:bad)
+    Ramaze::Log.warn(msg)
+    redirect r(:bad)
   end
 
   #
@@ -138,7 +148,7 @@ class MainController < Ramaze::Controller
   # Returns _entity_id_ attribute of idp.yaml.
   #
   def get_attribute(entity_id)
-    Ramaze::Global.IdProviders.each_pair do |fed_name, idp|
+    @config.idproviders.each_pair do |fed_name, idp|
       if idp.key?(entity_id)
         return idp[entity_id]
       end
@@ -152,7 +162,7 @@ class MainController < Ramaze::Controller
   def get_sites(entity_ids)
     recent, others = {}, Hash.new { |h, k| h[k] = {} }
 
-    Ramaze::Global.IdProviders.each do |fed_name, idp|
+    @config.idproviders.each do |fed_name, idp|
       idp.each_pair do |entity_id, value|
         if value.key?(:site)
           if entity_ids and entity_ids.include?(entity_id)
@@ -185,7 +195,7 @@ class MainController < Ramaze::Controller
           else
             [idp].pack('m')
           end
-    response.set_cookie(@config[:common_domain_cookie], create_cookie(cdk))
+    response.set_cookie(@config.common_domain_cookie, create_cookie(cdk))
   end
 
   #
@@ -193,7 +203,7 @@ class MainController < Ramaze::Controller
   # Refer to [SAML Profile 2.0 4.3.1, 4.3.3]
   #
   def get_common_domain_cookie
-    if cdk = request.cookies[@config[:common_domain_cookie]]
+    if cdk = request.cookies[@config.common_domain_cookie]
       cdk.split(/ /).map { |id| id.unpack('m')[0] }
     else
       nil
@@ -204,15 +214,22 @@ class MainController < Ramaze::Controller
   # Set the cookie using bypass this Discovery Service.
   #
   def set_redirect_cookie(idp)
-    response.set_cookie(@config[:redirect_cookie], create_cookie(idp))
+    response.set_cookie(@config.redirect_cookie, create_cookie(idp))
   end
 
   def create_cookie(value)
     cookie = {
       :value  => value,
-      :domain => @config[:common_domain]
+      :domain => @config.common_domain
     }
-    cookie[:expires] = Time.now + @config[:expires] if @params['bypass'] == 'permanent'
+    cookie[:expires] = Time.now + @config.expires if @params['bypass'] == 'permanent'
     cookie
+  end
+
+  #
+  # for Helper::Localize
+  #
+  def localize_dictionary
+    @config.dictionary
   end
 end

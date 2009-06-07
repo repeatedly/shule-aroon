@@ -1,7 +1,4 @@
 --- 
-404_DS: "DS end point must be require."
-404_RP: "SP is not found in Relying Party."
-404_idpdisc: "'return' parameter is not found in Metadata."
 admin: Admin
 bad: "Bad request!"
 bad_text: "Require parameters are following. "
@@ -13,14 +10,12 @@ err_text: "Please contact administrator."
 index: "Select your Identity Provider"
 index_text: "Select from following IdP list."
 info: "Contact Information"
-invalid_URI: "'return' parameter is invalid URI"
 legend: "Identity Provider List"
 list: "Service Provider list"
 list_text: "Currently available SP"
 mail: Mail
 no_site: "No entries"
 no_site_text: "Password change sites don't exist Identity Providers."
-not_SAML: "Request parameters are different from SAML spec."
 permanent: "Remember this selection permanently."
 recent: "Recently selected Identity Provider."
 remember: "Remember this selection while closing browser."

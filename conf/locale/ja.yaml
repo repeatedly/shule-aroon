@@ -1,7 +1,4 @@
 --- 
-404_DS: DSのエンドポイントは必須です.
-404_RP: "SPがRelying Partyに見つかりません."
-404_idpdisc: Metadataにreturnパラメータの値が見つかりません.
 admin: 管理者
 bad: 不正なリクエストです!
 bad_text: "必要なパラメータは下記の通りです. "
@@ -13,14 +10,12 @@ err_text: 管理者へと連絡して下さい.
 index: "Identity Providerを選択して下さい"
 index_text: 下記のリストからIdPを選択して下さい.
 info: 連絡先
-invalid_URI: returnパラメータの値が不正なURIです.
 legend: "Identity Provider リスト"
 list: "Service Provider 一覧"
 list_text: 現在利用可能なSP
 mail: メールアドレス
 no_site: エントリがありません.
 no_site_text: IdPの中にパスワード変更サイトが登録されていません.
-not_SAML: リクエストパラメータがSAML仕様と異なっています.
 permanent: これからずっと選択を保存する.
 recent: "最近選択したIdentity Provider."
 remember: ブラウザを閉じるまで選択を保存する.

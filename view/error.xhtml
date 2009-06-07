@@ -1,17 +1,17 @@
 <div id="description">
-  <h2>[[err]]</h2>
+  <h2>{err}</h2>
   <p>
-    [[err_text]]
+    {err_text}
   </p>
-  <h2>[[info]]</h2>
+  <h2>{info}</h2>
   <table class="info" border="0">
     <tr>
-      <td>[[admin]]</td>
-      <td class="print">#{@config[:admin]}</td>
+      <td>{admin}</td>
+      <td class="print">#{@config.admin.name}</td>
     </tr>
     <tr>
-      <td>[[mail]]</td>
-      <td class="print">#{@config[:mail]}</td>
+      <td>{mail}</td>
+      <td class="print">#{@config.admin.mail}</td>
     </tr>
   </table>
 </div>

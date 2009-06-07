@@ -1,29 +1,13 @@
 # Refer to conf/README.markdown
 
-:adapter: :webrick
+:handler: :webrick
 :port:    7000
 
 :common_domain: null
 :expires:       31536000
 
-:default_language: 'en'
-:languages:
-  - 'jp'
-  - 'en'
-
 :admin: 'admin'
 :mail:  'root@localhost'
 
-:org_name: 'Test Federation org'
-:org_link: 'http://www.example.com/'
-
-:log_level:
-  - :error
-  - :warn
-
-
-####################
-# Don't edit below #
-####################
-:common_domain_cookie: '_saml_idp'
-:redirect_cookie:      '_redirect_idp'
+:fed_name: 'Test Federation org'
+:fed_link: 'http://www.example.com/'

@@ -1,34 +1,8 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# Use this file directly like `ruby start.rb` if you don't want to use the
+# `ramaze start` command.
+# All application related things should go into `app.rb`, this file is simply
+# for options related to running the application locally.
 
-$KCODE = 'u' unless Object.const_defined?(:Encoding)
-
-%w[rubygems ramaze uri].each do |lib|
-  require lib
-end
-
-# Measure for deamonize.
-Dir.chdir(__DIR__)
-
-ds_config = YAML.load_file('./conf/ds.yaml')
-
-unless Ramaze::Log.loggers.size == 2
-  Ramaze::Log.loggers <<
-    Ramaze::Logger::Informer.new("./log/ds_#{Time.now.strftime('%Y%m%d')}.log",
-                                 ds_config[:log_level])
-end
-
-# for Localilzation
-Ramaze::Tool::Localize.trait :default_language => ds_config[:default_language],
-                             :languages        => ds_config[:languages],
-                             :collect          => false,
-                             :file             => 'conf/locale/%s.yaml'
-Ramaze::Dispatcher::Action::FILTER << Ramaze::Tool::Localize
-
-Ramaze::Global.add_option(:ds_config,   ds_config)
-Ramaze::Global.add_option(:SProviders,  YAML.load_file('./conf/sp.yaml'))
-Ramaze::Global.add_option(:IdProviders, YAML.load_file('./conf/idp.yaml'))
-
-require 'controller/main'
-
-Ramaze.start :adapter => ds_config[:adapter], :port => ds_config[:port]
+require File.expand_path('app', File.dirname(__FILE__))
+adapter = Ramaze.options.adapter
+Ramaze.start(:adapter => adapter.handler, :port => adapter.port, :file => __FILE__)

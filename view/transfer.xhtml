@@ -2,22 +2,22 @@
 
 <?r unless recent or others ?>
 <div id="description">
-  <h2>[[no_site]]</h2>
+  <h2>{no_site}</h2>
   <p>
-    [[no_site_text]]
+    {no_site_text}
   </p>
 </div>
 <?r else ?>
 <div id="description">
-  <h2>[[transfer]]</h2>
+  <h2>{transfer}</h2>
   <p>
-    [[transfer_text]]
+    {transfer_text}
   </p>
 </div>
 
 <?r if recent ?>
 <div id="recent_IdP">
-  <p>[[recent]]</p>
+  <p>{recent}</p>
   <?r recent.each_pair do |entity_id, value| ?>
   <ul>
     <li><a href="#{value[:site]}">#{value[:name]}</a></li>
@@ -29,7 +29,7 @@
 <?r if others ?>
 <form id="select_IdP" action="./transfer" method="get">
   <fieldset>
-    <legend>[[legend]]</legend>
+    <legend>{legend}</legend>
     <select name="user_IdP">
     <?r others.each_pair do |fed_name, idp| ?>
     <optgroup label="#{fed_name}">
@@ -39,7 +39,7 @@
     </optgroup>
     <?r end ?>
     </select>
-    <input type="submit" name="select_IdP" value="[[select]]" /><br />
+    <input type="submit" name="select_IdP" value="{select}" /><br />
   </fieldset>
 </form>
 <?r end ?>

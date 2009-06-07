@@ -15,98 +15,84 @@ end
 
 class LocaleGenerator
   Keywords = [
-  # common
-  'recent', 'legend', 'select', 'info', 'admin', 'mail',
-  # index
-  'index', 'index_text', 'clear', 'bypass', 'remember', 'permanent',
-  # list
-  'list', 'list_text',
-  # transfer
-  'transfer', 'transfer_text', 'no_site', 'no_site_text',
-  # bad
-  'bad', 'bad_text', 'bad_warn',
-  # error
-  'err', 'err_text',
-  # flash
-  'not_SAML', '404_RP', '404_DS', '404_idpdisc', 'invalid_URI'
+    # common
+    'recent', 'legend', 'select', 'info', 'admin', 'mail',
+    # index
+    'index', 'index_text', 'clear', 'bypass', 'remember', 'permanent',
+    # list
+    'list', 'list_text',
+    # transfer
+    'transfer', 'transfer_text', 'no_site', 'no_site_text',
+    # bad
+    'bad', 'bad_text', 'bad_warn',
+    # error
+    'err', 'err_text',
   ]
 
   Message = {
     # English
     :en => [
-    # common
-    'Recently selected Identity Provider.',
-    'Identity Provider List',
-    'Select',
-    'Contact Information',
-    'Admin',
-    'Mail',
-    # index
-    'Select your Identity Provider',
-    'Select from following IdP list.',
-    'Clear',
-    'DS bypass configuration(for single IdP user)',
-    'Remember this selection while closing browser.',
-    'Remember this selection permanently.',
-    # list
-    'Service Provider list',
-    'Currently available SP',
-    # transfer
-    'Select your password change site',
-    'Select from following IdP list for Password change.',
-    'No entries',
-    'Password change sites don\'t exist Identity Providers.',
-    # bad
-    'Bad request!',
-    'Require parameters are following. ',
-    'Please contact administrator if display this page in an orderly manner. ',
-    # error
-    'Error!',
-    'Please contact administrator.',
-    # flash
-    'Request parameters are different from SAML spec.',
-    'SP is not found in Relying Party.',
-    'DS end point must be require.',
-    "'return' parameter is not found in Metadata.",
-    "'return' parameter is invalid URI"
+      # common
+      'Recently selected Identity Provider.',
+      'Identity Provider List',
+      'Select',
+      'Contact Information',
+      'Admin',
+      'Mail',
+      # index
+      'Select your Identity Provider',
+      'Select from following IdP list.',
+      'Clear',
+      'DS bypass configuration(for single IdP user)',
+      'Remember this selection while closing browser.',
+      'Remember this selection permanently.',
+      # list
+      'Service Provider list',
+      'Currently available SP',
+      # transfer
+      'Select your password change site',
+      'Select from following IdP list for Password change.',
+      'No entries',
+      'Password change sites don\'t exist Identity Providers.',
+      # bad
+      'Bad request!',
+      'Require parameters are following. ',
+      'Please contact administrator if display this page in an orderly manner. ',
+      # error
+      'Error!',
+      'Please contact administrator.'
     ],
     # Japanese
-    :jp => [
-    #common
-    '最近選択したIdentity Provider.',
-    'Identity Provider リスト',
-    '送信',
-    '連絡先',
-    '管理者',
-    'メールアドレス',
-    # index
-    'Identity Providerを選択して下さい',
-    '下記のリストからIdPを選択して下さい.',
-    'クリア',
-    'DSの迂回設定(単一IdPユーザ向け).',
-    'ブラウザを閉じるまで選択を保存する.',
-    'これからずっと選択を保存する.',
-    # list
-    'Service Provider 一覧',
-    '現在利用可能なSP',
-    # transfer
-    'パスワード変更サイトを選択して下さい.',
-    'パスワード変更のため下記のリストからIdPを選択して下さい.',
-    'エントリがありません.',
-    'IdPの中にパスワード変更サイトが登録されていません.',
-    # bad
-    '不正なリクエストです!',
-    '必要なパラメータは下記の通りです. ',
-    'もし正しい操作でこのページが表示されたのなら，管理者へと連絡して下さい. ',
-    # error
-    'エラー!',
-    '管理者へと連絡して下さい.',
-    # flash
-    'リクエストパラメータがSAML仕様と異なっています.',
-    'SPがRelying Partyに見つかりません.',
-    'DSのエンドポイントは必須です.',
-    'Metadataにreturnパラメータの値が見つかりません.',
-    'returnパラメータの値が不正なURIです.'
+    :ja => [
+      #common
+      '最近選択したIdentity Provider.',
+      'Identity Provider リスト',
+      '送信',
+      '連絡先',
+      '管理者',
+      'メールアドレス',
+      # index
+      'Identity Providerを選択して下さい',
+      '下記のリストからIdPを選択して下さい.',
+      'クリア',
+      'DSの迂回設定(単一IdPユーザ向け).',
+      'ブラウザを閉じるまで選択を保存する.',
+      'これからずっと選択を保存する.',
+      # list
+      'Service Provider 一覧',
+      '現在利用可能なSP',
+      # transfer
+      'パスワード変更サイトを選択して下さい.',
+      'パスワード変更のため下記のリストからIdPを選択して下さい.',
+      'エントリがありません.',
+      'IdPの中にパスワード変更サイトが登録されていません.',
+      # bad
+      '不正なリクエストです!',
+      '必要なパラメータは下記の通りです. ',
+      'もし正しい操作でこのページが表示されたのなら，管理者へと連絡して下さい. ',
+      # error
+      'エラー!',
+      '管理者へと連絡して下さい.'
     ]
   }
 
