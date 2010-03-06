@@ -14,6 +14,7 @@ Shule Aroon is the Ruby based implementation.
 
 * [Ruby](http://www.ruby-lang.org/)
 * [Ramaze](http://ramaze.net/)
+** locale
 
 # Link
 
@@ -45,6 +46,6 @@ Shule Aroon UI refers to above projects.
 
 # Copyright
 
-    Copyright (c) 2008-2009 Masahiro Nakagawa
+    Copyright (c) 2008-2010 Masahiro Nakagawa
 
 Shule Aroon is released under the Ruby license.
