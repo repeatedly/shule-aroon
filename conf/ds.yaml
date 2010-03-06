@@ -1,8 +1,5 @@
 # Refer to conf/README.markdown
 
-:handler: :webrick
-:port:    7000
-
 :common_domain: null
 :expires:       31536000
 

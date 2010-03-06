@@ -63,9 +63,6 @@ module ShuleAroon
 
     o 'Name of redirect cookie for IdP', :redirect_cookie,
       '_redirect_idp'
-
-    Ramaze.options.adapter.handler = config[:handler]
-    Ramaze.options.adapter.port    = config[:port]
   end
 end
 
