@@ -11,6 +11,8 @@ require 'ramaze/helper/localize'
 # app from any other working directory
 $LOAD_PATH.unshift(__DIR__)
 
+# Make sure that Ramaze knows where you are
+Ramaze.options.roots = [__DIR__]
 
 # ShuleAroon configration
 module ShuleAroon
@@ -70,4 +72,5 @@ end
 # Ramaze::Log.loggers << Logger.new('./log/ds.log', 10, (5 << 20))
 
 # Initialize controllers and models
-require 'controller/main'
+require __DIR__('controller/main')
+
