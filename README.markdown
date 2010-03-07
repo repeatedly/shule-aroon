@@ -14,7 +14,15 @@ Shule Aroon is the Ruby based implementation.
 
 * [Ruby](http://www.ruby-lang.org/)
 * [Ramaze](http://ramaze.net/)
-** locale
+  * locale (for localize)
+
+# Run
+
+  $ ramaze start -s thin
+
+If you know other options, check help.
+
+  $ ramaze --help
 
 # Link
 

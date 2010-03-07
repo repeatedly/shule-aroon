@@ -8,15 +8,6 @@ ShuleAroon basic configuration.
 Configuration parameters are below.
 Value type is shown in parentheses.
 
-* :handler(Symbol)
-
-One of Ramaze support application servers.
-Don't support Ebb, because don't treat multiple cookie at the moment.
-
-* :port(Interger)
-
-Port number using application server.
-
 * :common_domain(String or null)
 
 Set the trust circle domain(must start '.').
